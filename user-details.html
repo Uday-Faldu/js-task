@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>User Details</title>
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="bg-dark text-light">
+    <div class="container mt-5">
+      <div
+        id="userDetail"
+        class="card bg-light text-dark border-info shadow p-4 mx-auto"
+        style="max-width: 600px"
+      ></div>
+    </div>
+
+    <script>
+      const urlParams = new URLSearchParams(window.location.search);
+      const userId = parseInt(urlParams.get("id"));
+
+      fetch("data.json")
+        .then((res) => res.json())
+        .then((data) => {
+          const user = data.find((u) => u.id === userId);
+          if (!user) {
+            document.getElementById("userDetail").innerHTML =
+              "<p>User not found.</p>";
+            return;
+          }
+
+          const initials = user.name
+            .split(" ")
+            .map((n) => n[0])
+            .join("")
+            .toUpperCase();
+
+          document.getElementById("userDetail").innerHTML = `
+            <div class="d-flex align-items-center mb-4">
+              <div class="bg-info text-white rounded-circle d-flex align-items-center justify-content-center me-3" style="width: 80px; height: 80px; font-size: 28px; font-weight: bold;">
+                ${initials}
+              </div>
+              <div>
+                <h4 class="mb-0 text-info">${user.name}</h4>
+                <small class="text-muted">${user.college_branch} @ ${
+            user.college
+          }</small>
+              </div>
+            </div>
+            <ul class="list-group">
+              <li class="list-group-item"><strong>Email:</strong> ${
+                user.email
+              }</li>
+              <li class="list-group-item"><strong>Mobile:</strong> ${
+                user.mobile
+              }</li>
+              <li class="list-group-item"><strong>Gender:</strong> ${
+                user.gender
+              }</li>
+              <li class="list-group-item"><strong>DOB:</strong> ${user.DOB}</li>
+              <li class="list-group-item"><strong>Age:</strong> ${user.age}</li>
+              <li class="list-group-item"><strong>Hobbies:</strong> ${user.hobbies.join(
+                ", "
+              )}</li>
+              <li class="list-group-item"><strong>Address:</strong> ${
+                user.address
+              }, ${user.city}, ${user.state}, ${user.country} - ${
+            user.pincode
+          }</li>
+              <li class="list-group-item"><strong>College Joining:</strong> ${
+                user.clg_joining_date
+              }</li>
+              <li class="list-group-item"><strong>Passing Year:</strong> ${
+                user.passing_year
+              }</li>
+            </ul>
+          `;
+        });
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.7/dist/js/bootstrap.bundle.min.js"></script>
+  </body>
+</html>
