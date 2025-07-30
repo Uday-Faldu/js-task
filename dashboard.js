@@ -28,10 +28,9 @@ const logoutBtn = document.getElementById("logoutBtn");
 if (logoutBtn) {
   logoutBtn.addEventListener("click", function () {
     localStorage.clear();
-    window.location.href = "login.html"; 
+    window.location.href = "index.html";
   });
 }
-
 
 fetch("data.json")
   .then((res) => res.json())

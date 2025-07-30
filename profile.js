@@ -28,26 +28,6 @@ function updateAvatar(name, imageUrl) {
   }
 }
 
-// function loadProfile() {
-//   const data = JSON.parse(localStorage.getItem("userProfile")) || {};
-//   const name = data.name || "User Name";
-//   const email = data.email || "user@email.com";
-
-//   document.getElementById("profileName").textContent = name;
-//   document.getElementById("profileEmail").textContent = email;
-
-//   if (nameInput) nameInput.value = name;
-//   if (emailInput) emailInput.value = email;
-
-//   if (data.profileImage) {
-//     previewImage.src = data.profileImage;
-//     previewImage.style.display = "block";
-//     removeBtn.style.display = "inline-block";
-//   }
-
-//   updateAvatar(name, data.profileImage);
-// }
-
 function loadProfile() {
   const name = localStorage.getItem("userName") || "User Name";
   const email = localStorage.getItem("userEmail") || "user@email.com";
@@ -55,7 +35,7 @@ function loadProfile() {
   document.getElementById("profileName").textContent = name;
   document.getElementById("profileEmail").textContent = email;
 
-  updateAvatar(name, null); // or load profile image if you store one separately
+  updateAvatar(name, null);
 }
 
 window.addEventListener("DOMContentLoaded", loadProfile);
